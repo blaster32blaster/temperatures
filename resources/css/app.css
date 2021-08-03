@@ -1,0 +1,48 @@
+#temp-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#country-wrapper {
+    margin: 2rem;
+}
+
+#city-wrapper {
+    margin: 2rem;
+}
+
+#date-wrapper{
+    margin: 2rem;
+}
+
+#temp-wrapper {
+    margin: 2rem;
+}
+
+#standard-wrapper {
+    margin: 2rem;
+}
+
+.btn-form {
+    max-width: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#entries-table-wrapper {
+    margin: 3rem;
+}
+
+#entries-table-wrapper thead th {
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 2rem;
+}
+
+#entries-table-wrapper td {
+    padding: 2rem;
+}
+
+#entries-table-wrapper table, thead, td, th {
+    border: 1px solid black;
+}

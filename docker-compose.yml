@@ -1,0 +1,54 @@
+version: "3.2"
+services:
+    #PHP with apache
+    temperature_container:
+      #image will be built by processing the Dockerfile in this path
+      build: .
+      container_name: temp_cont
+      command:
+        sh ./dock-files/startup.sh
+      environment:
+        XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1
+      links:
+        - temp_db
+      volumes:
+        - ./:/var/www/html
+      #mark the db services as a dependency
+      depends_on:
+        - temp_db
+      restart:
+        always
+      networks:
+        - traefik_webgateway
+        - internal
+      ports:
+        - "8077:80"
+        - 6006:6001
+    #mysql db
+    temp_db:
+      image: mysql:5.7.20
+      container_name: temp-mysql-database
+      command: --sql_mode=""
+      restart: always
+      #storing the mysql folder outside allows persistence
+      volumes:
+        - db_data:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: mysql_root_password1
+        MYSQL_USER: user
+        MYSQL_PASSWORD: mysql_user_password1
+        MYSQL_DATABASE: tempdb
+      networks:
+        internal:
+          aliases:
+            - temp_mysql
+      ports:
+      - "4318:3306"
+volumes:
+    db_data:
+networks:
+  traefik_webgateway:
+    external: true
+  internal:
+    external: true
+
